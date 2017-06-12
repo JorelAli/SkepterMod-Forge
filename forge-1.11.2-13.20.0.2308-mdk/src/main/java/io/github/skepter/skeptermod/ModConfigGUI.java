@@ -29,6 +29,7 @@ public class ModConfigGUI extends GuiConfig {
         //Add categories to config GUI
         list.add(categoryElement(Main.CATEGORY_RAINBOW, "Rainbow Chat", "Allows you to talk in chat in rainbow colors"));
         list.add(categoryElement(Main.CATEGORY_COMMAND, "Commands", "Enable/Disable commands"));
+        list.add(categoryElement(Main.CATEGORY_CHALLENGE, "Challenge", "Challenge options"));
         list.add(categoryElement(Main.CATEGORY_OTHER, "Other", "Enable/Disable other stuff"));
       
         return list;

@@ -23,10 +23,17 @@ public class Main {
 	public static boolean compassEnabled = true;
 	public static boolean nameHighlightEnabled = true;
 	public static boolean nearCommandEnabled = true;
+	public static boolean challengeEnabled = true;
+	public static int challengeDelay = 5000;
+	public static boolean challengeDisplay = true;
+	public static boolean challengeLowercase = true;
+	public static boolean challengeRandomDelay = true;
+	public static boolean challengeSmartDelay = true;
 	
 	//Config categories
 	public static final String CATEGORY_RAINBOW = "rainbowchat";
 	public static final String CATEGORY_COMMAND = "commands";
+	public static final String CATEGORY_CHALLENGE = "challenge";
 	public static final String CATEGORY_OTHER = "other";
 	
 	public static boolean isInWorld = false;
@@ -60,6 +67,13 @@ public class Main {
 		tpCommandEnabled = configFile.getBoolean("/tp command enabled", CATEGORY_COMMAND, tpCommandEnabled, "Whether the /tp command is enabled");
 		topCommandEnabled = configFile.getBoolean("/top command enabled", CATEGORY_COMMAND, topCommandEnabled, "Whether the /top command is enabled");
 		nearCommandEnabled = configFile.getBoolean("/near command enabled", CATEGORY_COMMAND, nearCommandEnabled, "Whether the /near command is enabled");
+		
+		challengeEnabled = configFile.getBoolean("Challenge solver enabled", CATEGORY_CHALLENGE, challengeEnabled, "Whether the challenge completer is enabled");
+		challengeDelay = configFile.getInt("Challenge delay", CATEGORY_CHALLENGE, challengeDelay,  0, Integer.MAX_VALUE, "The delay between the challenge being asked and answering the challenge");
+		challengeDisplay = configFile.getBoolean("Challenge display enabled", CATEGORY_CHALLENGE, challengeDisplay, "Whether the challenge countdown is enabled");
+		challengeLowercase = configFile.getBoolean("Lowercase answers", CATEGORY_CHALLENGE, challengeLowercase, "Whether the challenge should be answered in lowercase");
+		challengeRandomDelay = configFile.getBoolean("Challenge delay randomiser", CATEGORY_CHALLENGE, challengeRandomDelay, "Adds a random time to the base challenge delay option");
+		challengeSmartDelay = configFile.getBoolean("Challenge smart delay", CATEGORY_CHALLENGE, challengeSmartDelay, "Calculates the delay based on the complexity of the string. OVERRIDES RANDOM DELAY");
 		
 		compassEnabled = configFile.getBoolean("Teleporting compass enabled", CATEGORY_OTHER, compassEnabled, "Whether right clicking with a compass teleports you");
 		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
