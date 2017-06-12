@@ -10,6 +10,7 @@ public class NameHighlighter {
 	
 	@SubscribeEvent
 	public void onChat(ClientChatReceivedEvent event) {
+		//Make name bold and gold so it stands out if someone says my name
 		if(event.getMessage().getUnformattedText().contains("Skepter")) {
 			Style style = new Style();
 			style.setBold(true);

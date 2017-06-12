@@ -18,6 +18,7 @@ public class ChatHandler {
 	}
 	
 	private String addRainbow(String str) {
+		//inserts chatcolors to simulate rainbow chat
 		colors = Main.colors.split(" ");
 		StringBuilder newString = new StringBuilder("");
 		char[] charArray = str.toCharArray();

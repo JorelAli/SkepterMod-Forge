@@ -27,6 +27,8 @@ public class TPHandler {
 	@SubscribeEvent
 	public void onChat(ClientChatEvent event) {
 		if(Main.tpCommandEnabled) {
+			//grabs the player's coordinates with /coords
+			//teleports them to the respective coordinates
 			if (event.getOriginalMessage().startsWith("/tp ")) {
 				event.setCanceled(true);
 				final String[] args = event.getOriginalMessage().split(" ");
@@ -44,6 +46,7 @@ public class TPHandler {
 		}
 	}
 	
+	//If the message is from Essentials coordinates
 	private boolean isCoordinates(String str) {
 		return (str.startsWith("Current World: ") || str.startsWith("X: ") || str.startsWith("Y: ")
 				|| str.startsWith("Z: ") || str.startsWith("Yaw: ") || str.startsWith("Pitch: ")
@@ -56,6 +59,7 @@ public class TPHandler {
 			String message = event.getMessage().getUnformattedText();
 			if(readyToTeleport || acceptingCoordinates) {
 				event.setCanceled(true);
+				//Hardcoded world names for a specific server
 				if (message.startsWith("Current World: ")) {
 					if (message.contains("end")) {
 						world = 0;
@@ -67,6 +71,7 @@ public class TPHandler {
 						world = 3;
 					}
 				}
+				//Get the x, y, z values
 				if(message.startsWith("X: ")) {
 					x = Integer.parseInt(message.replaceAll("\\D", ""));
 					if (message.charAt(3) == '-') {
@@ -80,6 +85,7 @@ public class TPHandler {
 				} else if(message.startsWith("Y: ")) {
 					y = Integer.parseInt(message.replaceAll("\\D", ""));
 				} else if(message.startsWith("Distance: ")) {
+					//If "Distance: " is found, the player is in the same world as you
 					similarWorld = true;
 				}
 				if((y != -1) && (x != 1000000) && (z != 1000000) && readyToTeleport) {
@@ -91,7 +97,7 @@ public class TPHandler {
 							doTeleport();
 
 						}
-
+						//delay prevents nocheat (etc.) from picking up /coords and /tppos at the same time
 					}, 500);
 					return;
 				}
@@ -115,6 +121,7 @@ public class TPHandler {
 
 	public void performCommand(int world, int x, int y, int z) {
 		switch (world) {
+		//Uses Multiverse to teleport to specific worlds (needs to be configurable)
 		case 0:
 			doCommandInstant("/mvtp world_new_the_end");
 			break;

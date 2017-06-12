@@ -16,21 +16,32 @@ public class CompassHandler {
 	@SubscribeEvent
 	public void compassClick(PlayerInteractEvent event) {
 		if(Main.compassEnabled) {
-			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getItemById(345)))) {			
+			//If they're holding a compass
+			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getItemById(345)))) {		
+				//Get the target block (at a maximums of 1024 blocks away)
 				BlockPos targetBlockDistance = Minecraft.getMinecraft().player.rayTrace(maxDistance, 1.0F).getBlockPos();
 				if(Minecraft.getMinecraft().objectMouseOver == null) {
 					return;
 				}
+				//Get the target block (about 5 blocks away) 
+				//This will be the block that the player is currently "highlighting"
+				//This may be "air"
 				BlockPos targetBlockClose = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
 				
+				//Since we can't detect left/right click, use a distance check
+				//to determine whether we're going through a block, or teleporting
+				//to a block
 				if(arePositionsSimilar(targetBlockClose, targetBlockDistance)) {
+					//Do a /thru command (equivalent)
+
 					//System.out.println("Blocks are similar (we're looking directly at a block)");
 					int x = 0;
-					int y = 0;
+					int y = -10;
 					int z = 0;
-					//Do a thru command
 					//System.out.println("We are looking " + Minecraft.getMinecraft().player.getHorizontalFacing().name());
 					switch(Minecraft.getMinecraft().player.getHorizontalFacing()) {
+					//Switch user's facing direction to somewhat determine which direction
+					//to /thru through
 						case EAST: {
 							for(int i = 1; i <= maxBlockThru; i++) {
 								if(isAir(targetBlockClose.east(i))) {
@@ -102,15 +113,19 @@ public class CompassHandler {
 							}
 						}
 					}
+					//Prevent teleporting through bedrock
 					if(y <= 0) {
 						return;
 					}
-					if(x == 0 && y == 0 && z == 0) {
+					//Could not find coordinates
+					if(x == 0 && y == -10 && z == 0) {
 						return;
 					} else {
+						//Teleport to location through blocks
 						teleportSafely(x, y, z);
 					}
 				} else {
+					//Teleport to location
 					int x = targetBlockDistance.getX();
 					int y = targetBlockDistance.getY(); // + 1
 					int z = targetBlockDistance.getZ();
@@ -124,11 +139,13 @@ public class CompassHandler {
 		EntityPlayerSP player = Minecraft.getMinecraft().player;
 		BlockPos pos = new BlockPos(x,y,z);
 
+		//Check if air above block
 		if(isAir(pos.up()) && isAir(pos.up(2))) {
 			//System.out.println("Teleporting normally (block above is air)");
 			teleportCheckingY(x, y, z);
 			return;
 		} else {
+			//Finds the closest block to the player and teleports there IF there is air above it
 			BlockPos[] poss = new BlockPos[] {new BlockPos(x+1,y,z), new BlockPos(x-1,y,z), new BlockPos(x,y,z+1), new BlockPos(x,y,z-1)};
 			
 			double minDistance = maxDistance * 2;
@@ -150,6 +167,7 @@ public class CompassHandler {
 				teleportCheckingY(minBlockPos.getX(), minBlockPos.getY(), minBlockPos.getZ());
 				return;
 			} else {
+				//Teleports to a block near the target block, IF there is air above it
 				for(BlockPos p : poss) {
 					if(isAir(p.up())) {
 						//System.out.println("Teleporting to suitable block at target");
@@ -164,6 +182,7 @@ public class CompassHandler {
 		}
 	}
 	
+	//Checks the Y direction for air before teleporting
 	private void teleportCheckingY(int x, int y, int z) {
 		BlockPos pos = new BlockPos(x,y,z);
 		if(isAir(pos)) {
@@ -178,10 +197,12 @@ public class CompassHandler {
 		
 	}
 	
+	//Checks if two BlockPos' are similar
 	private boolean arePositionsSimilar(BlockPos pos1, BlockPos pos2) {
 		return (pos1.getX() == pos2.getX()) && (pos1.getY() == pos2.getY()) && (pos1.getZ() == pos2.getZ());
 	}
 
+	//Checks if a block is air
 	private boolean isAir(BlockPos bp) {
 		return Minecraft.getMinecraft().world.isAirBlock(bp);
 	}
