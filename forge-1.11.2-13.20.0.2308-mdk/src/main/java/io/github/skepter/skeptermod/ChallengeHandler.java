@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ChallengeHandler extends Gui {
 
 	private long countdown = 600L;
-	private final int baseTime = 2000;
 	private Timer timer;
 	
 	@SubscribeEvent
@@ -113,19 +112,19 @@ public class ChallengeHandler extends Gui {
 			int numDigits = answer.replaceAll("\\D", "").length();
 			int numLetters = answer.replaceAll("\\d", "").length();
 			if(numDigits >= 7) {
-				time = baseTime + 0;
+				time += 0;
 			} else if(numDigits >= 5) {
-				time = baseTime + 500;
+				time += 500;
 			}  else if(numDigits >= 2) {
-				time = baseTime + 1000;
+				time += 1000;
 			} 
 			
 			if(numLetters >= 7) {
-				time = baseTime + 0;
+				time += 0;
 			} else if(numLetters >= 5) {
-				time = baseTime + 500;
+				time += 500;
 			}  else if(numLetters >= 2) {
-				time = baseTime + 1000;
+				time += 1000;
 			} 
 		} else if(Main.challengeRandomDelay) {
 			time += ThreadLocalRandom.current().nextLong(0, 1000);

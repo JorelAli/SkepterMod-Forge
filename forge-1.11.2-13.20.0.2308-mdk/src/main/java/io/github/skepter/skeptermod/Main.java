@@ -24,7 +24,7 @@ public class Main {
 	public static boolean nameHighlightEnabled = true;
 	public static boolean nearCommandEnabled = true;
 	public static boolean challengeEnabled = true;
-	public static int challengeDelay = 5000;
+	public static int challengeDelay = 3750;
 	public static boolean challengeDisplay = true;
 	public static boolean challengeLowercase = true;
 	public static boolean challengeRandomDelay = true;
@@ -74,7 +74,7 @@ public class Main {
 		challengeDisplay = configFile.getBoolean("Challenge display enabled", CATEGORY_CHALLENGE, challengeDisplay, "Whether the challenge countdown is enabled");
 		challengeLowercase = configFile.getBoolean("Lowercase answers", CATEGORY_CHALLENGE, challengeLowercase, "Whether the challenge should be answered in lowercase");
 		challengeRandomDelay = configFile.getBoolean("Challenge delay randomiser", CATEGORY_CHALLENGE, challengeRandomDelay, "Adds a random time to the base challenge delay option");
-		challengeSmartDelay = configFile.getBoolean("Challenge smart delay", CATEGORY_CHALLENGE, challengeSmartDelay, "Calculates the delay based on the complexity of the string. OVERRIDES RANDOM DELAY");
+		challengeSmartDelay = configFile.getBoolean("Challenge smart delay", CATEGORY_CHALLENGE, challengeSmartDelay, "Calculates the delay based on the complexity of the string. OVERRIDES RANDOM DELAY. Uses the current delay value as a basis for the smart delay");
 		
 		compassEnabled = configFile.getBoolean("Teleporting compass enabled", CATEGORY_OTHER, compassEnabled, "Whether right clicking with a compass teleports you");
 		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
