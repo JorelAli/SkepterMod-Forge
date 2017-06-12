@@ -29,25 +29,38 @@ public class NearHandler {
 				Style white = new Style();
 				white.setColor(TextFormatting.WHITE);
 				
+				Style red = new Style();
+				red.setColor(TextFormatting.DARK_RED);
+				
 				
 				EntityPlayerSP p = Minecraft.getMinecraft().player;
 				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - dist, p.posY - dist, p.posZ - dist, p.posX + dist, p.posY + dist, p.posZ + dist);
 				List<EntityPlayer> players = Minecraft.getMinecraft().world.getEntitiesWithinAABB(EntityPlayer.class, boundingBox);
 				if(players.size() == 1) {
-					ITextComponent string = new TextComponentString("Nearby players: ").setStyle(gold).appendSibling(new TextComponentString("none").setStyle(white));
+					ITextComponent string = new TextComponentString("Players nearby: ").setStyle(gold).appendSibling(new TextComponentString("none").setStyle(white));
 					p.sendMessage(string);
 					return;
 				} else {
-					p.sendMessage(new TextComponentString("Nearby players:").setStyle(gold));
-					for(EntityPlayer player : players) {
-						if(player.getName().equals(p.getName())) {
-							continue;
-						} else {
-							int i = (int) player.getDistance(p.posX, p.posY, p.posZ);
-							ITextComponent string2 = new TextComponentString(player.getName() + ": " + String.valueOf(i) + "m");
-							p.sendMessage(string2);
+					ITextComponent string = new TextComponentString("Players nearby: ").setStyle(gold);
+					players.remove(p);
+					for (int j = 0; j < players.size(); j++) {
+						EntityPlayer player = players.get(j);
+						int i = (int) player.getDistance(p.posX, p.posY, p.posZ);
+
+						if (j != 0 || j != players.size() - 1) {
+							ITextComponent comma = new TextComponentString(", ").setStyle(white);
+							string.appendSibling(comma);
 						}
+
+						ITextComponent name = new TextComponentString(player.getName() + "(").setStyle(white);
+						ITextComponent dist = new TextComponentString(String.valueOf(i) + "m").setStyle(red);
+						ITextComponent end = new TextComponentString(")").setStyle(white);
+						string.appendSibling(name);
+						string.appendSibling(dist);
+						string.appendSibling(end);
+
 					}
+					p.sendMessage(string);
 				}
 			}
 		}
