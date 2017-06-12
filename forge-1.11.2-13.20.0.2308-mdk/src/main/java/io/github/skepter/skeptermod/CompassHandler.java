@@ -16,7 +16,7 @@ public class CompassHandler {
 	@SubscribeEvent
 	public void compassClick(PlayerInteractEvent event) {
 		if(Main.compassEnabled) {
-			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getByNameOrId("minecraft:compass")))) {			
+			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getItemById(345)))) {			
 				BlockPos targetBlockDistance = Minecraft.getMinecraft().player.rayTrace(maxDistance, 1.0F).getBlockPos();
 				BlockPos targetBlockClose = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
 				
