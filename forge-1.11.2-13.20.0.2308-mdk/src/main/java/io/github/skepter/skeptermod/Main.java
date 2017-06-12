@@ -24,6 +24,11 @@ public class Main {
 	public static boolean nameHighlightEnabled = true;
 	public static boolean nearCommandEnabled = true;
 	
+	//Config categories
+	public static final String CATEGORY_RAINBOW = "rainbowchat";
+	public static final String CATEGORY_COMMAND = "commands";
+	public static final String CATEGORY_OTHER = "other";
+	
 	public static boolean isInWorld = false;
 
 	//public static KeyBinding key = new KeyBinding("Send anvil packet", Keyboard.KEY_K, "Skeptermod");
@@ -48,14 +53,16 @@ public class Main {
 	}
 	
 	public static void syncConfig() {
-		rainbowchatEnabled = configFile.getBoolean("Rainbow chat enabled", Configuration.CATEGORY_GENERAL, rainbowchatEnabled, "Whether the rainbow chat is enabled or not");
-		colors = configFile.getString("Rainbow chat color", Configuration.CATEGORY_GENERAL, "&4 &c &6 &e &a &2 &b &3 &5 &d", "The order of colors to use", new String[] {"&4 &c &6 &e &a &2 &b &3 &5 &d", "&c &e &a &b &d"});
-		loopColor = configFile.getBoolean("Enable color looping", Configuration.CATEGORY_GENERAL, loopColor, "Whether the mod will loop the colors from the previous chat messages");
-		tpCommandEnabled = configFile.getBoolean("/tp command enabled", Configuration.CATEGORY_GENERAL, tpCommandEnabled, "Whether the /tp command is enabled");
-		topCommandEnabled = configFile.getBoolean("/top command enabled", Configuration.CATEGORY_GENERAL, topCommandEnabled, "Whether the /top command is enabled");
-		compassEnabled = configFile.getBoolean("Teleporting compass enabled", Configuration.CATEGORY_GENERAL, compassEnabled, "Whether right clicking with a compass teleports you");
-		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", Configuration.CATEGORY_GENERAL, nameHighlightEnabled, "Whether it highlights your name");
-		nearCommandEnabled = configFile.getBoolean("/near command enabled", Configuration.CATEGORY_GENERAL, nearCommandEnabled, "Whether the /near command is enabled");
+		rainbowchatEnabled = configFile.getBoolean("Rainbow chat enabled", CATEGORY_RAINBOW, rainbowchatEnabled, "Whether the rainbow chat is enabled or not");
+		colors = configFile.getString("Rainbow chat color",CATEGORY_RAINBOW, "&4 &c &6 &e &a &2 &b &3 &5 &d", "The order of colors to use", new String[] {"&4 &c &6 &e &a &2 &b &3 &5 &d", "&c &e &a &b &d"});
+		loopColor = configFile.getBoolean("Enable color looping", CATEGORY_RAINBOW, loopColor, "Whether the mod will loop the colors from the previous chat messages");
+		
+		tpCommandEnabled = configFile.getBoolean("/tp command enabled", CATEGORY_COMMAND, tpCommandEnabled, "Whether the /tp command is enabled");
+		topCommandEnabled = configFile.getBoolean("/top command enabled", CATEGORY_COMMAND, topCommandEnabled, "Whether the /top command is enabled");
+		nearCommandEnabled = configFile.getBoolean("/near command enabled", CATEGORY_COMMAND, nearCommandEnabled, "Whether the /near command is enabled");
+		
+		compassEnabled = configFile.getBoolean("Teleporting compass enabled", CATEGORY_OTHER, compassEnabled, "Whether right clicking with a compass teleports you");
+		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
 		
 		if (configFile.hasChanged())
 			configFile.save();
