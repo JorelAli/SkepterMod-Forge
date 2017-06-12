@@ -54,6 +54,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new CompassHandler());
 		MinecraftForge.EVENT_BUS.register(new NameHighlighter());
 		MinecraftForge.EVENT_BUS.register(new NearHandler());
+		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
 		//MinecraftForge.EVENT_BUS.register(new JoinFlyHandler());
 		//ClientRegistry.registerKeyBinding(key);
