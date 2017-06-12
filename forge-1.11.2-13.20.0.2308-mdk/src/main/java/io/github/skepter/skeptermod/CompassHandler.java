@@ -18,15 +18,18 @@ public class CompassHandler {
 		if(Main.compassEnabled) {
 			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getItemById(345)))) {			
 				BlockPos targetBlockDistance = Minecraft.getMinecraft().player.rayTrace(maxDistance, 1.0F).getBlockPos();
+				if(Minecraft.getMinecraft().objectMouseOver == null) {
+					return;
+				}
 				BlockPos targetBlockClose = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
 				
 				if(arePositionsSimilar(targetBlockClose, targetBlockDistance)) {
-					System.out.println("Blocks are similar (we're looking directly at a block)");
+					//System.out.println("Blocks are similar (we're looking directly at a block)");
 					int x = 0;
 					int y = 0;
 					int z = 0;
 					//Do a thru command
-					System.out.println("We are looking " + Minecraft.getMinecraft().player.getHorizontalFacing().name());
+					//System.out.println("We are looking " + Minecraft.getMinecraft().player.getHorizontalFacing().name());
 					switch(Minecraft.getMinecraft().player.getHorizontalFacing()) {
 						case EAST: {
 							for(int i = 1; i <= maxBlockThru; i++) {
@@ -122,7 +125,7 @@ public class CompassHandler {
 		BlockPos pos = new BlockPos(x,y,z);
 
 		if(isAir(pos.up()) && isAir(pos.up(2))) {
-			System.out.println("Teleporting normally (block above is air)");
+			//System.out.println("Teleporting normally (block above is air)");
 			teleportCheckingY(x, y, z);
 			return;
 		} else {
@@ -138,23 +141,23 @@ public class CompassHandler {
 				}
 			}
 			if(minBlockPos == null) {
-				System.out.println("Couldn't find minBlockPosition. Smushing face into target block");
+				//System.out.println("Couldn't find minBlockPosition. Smushing face into target block");
 				teleportCheckingY(x, y, z);
 				return;
 			}
 			if(isAir(minBlockPos.up())) {
-				System.out.println("Teleporting to block closest to player");
+				//System.out.println("Teleporting to block closest to player");
 				teleportCheckingY(minBlockPos.getX(), minBlockPos.getY(), minBlockPos.getZ());
 				return;
 			} else {
 				for(BlockPos p : poss) {
 					if(isAir(p.up())) {
-						System.out.println("Teleporting to suitable block at target");
+						//System.out.println("Teleporting to suitable block at target");
 						teleportCheckingY(p.getX(), p.getY(), p.getZ());
 						return;
 					}
 				}
-				System.out.println("Smushing face into target block");
+				//System.out.println("Smushing face into target block");
 				teleportCheckingY(x, y, z);
 				return;
 			}
