@@ -27,6 +27,9 @@ public class CompassHandler {
 				//This will be the block that the player is currently "highlighting"
 				//This may be "air"
 				BlockPos targetBlockClose = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
+				if(targetBlockClose == null || targetBlockDistance == null) {
+					return;
+				}
 				
 				//Since we can't detect left/right click, use a distance check
 				//to determine whether we're going through a block, or teleporting
