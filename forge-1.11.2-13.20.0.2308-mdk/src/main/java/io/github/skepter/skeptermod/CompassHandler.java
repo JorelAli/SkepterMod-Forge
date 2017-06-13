@@ -10,16 +10,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CompassHandler {
 	
-	final double maxDistance = 1024;
-	final int maxBlockThru = 10;
-	
 	@SubscribeEvent
 	public void compassClick(PlayerInteractEvent event) {
 		if(Main.compassEnabled) {
 			//If they're holding a compass
 			if(ItemStack.areItemsEqual(event.getItemStack(), new ItemStack(Item.getItemById(345)))) {		
 				//Get the target block (at a maximums of 1024 blocks away)
-				BlockPos targetBlockDistance = Minecraft.getMinecraft().player.rayTrace(maxDistance, 1.0F).getBlockPos();
+				BlockPos targetBlockDistance = Minecraft.getMinecraft().player.rayTrace(Main.compassDistance, 1.0F).getBlockPos();
 				if(Minecraft.getMinecraft().objectMouseOver == null) {
 					return;
 				}
@@ -46,7 +43,7 @@ public class CompassHandler {
 					//Switch user's facing direction to somewhat determine which direction
 					//to /thru through
 						case EAST: {
-							for(int i = 1; i <= maxBlockThru; i++) {
+							for(int i = 1; i <= Main.compassThruDistance; i++) {
 								if(isAir(targetBlockClose.east(i))) {
 									x = targetBlockClose.east(i).getX();
 									y = targetBlockClose.east(i).getY();
@@ -57,7 +54,7 @@ public class CompassHandler {
 							break;
 						}
 						case NORTH: {
-							for(int i = 1; i <= maxBlockThru; i++) {
+							for(int i = 1; i <= Main.compassThruDistance; i++) {
 								if(isAir(targetBlockClose.north(i))) {
 									x = targetBlockClose.north(i).getX();
 									y = targetBlockClose.north(i).getY();
@@ -68,7 +65,7 @@ public class CompassHandler {
 							break;
 						}
 						case SOUTH: {
-							for(int i = 1; i <= maxBlockThru; i++) {
+							for(int i = 1; i <= Main.compassThruDistance; i++) {
 								if(isAir(targetBlockClose.south(i))) {
 									x = targetBlockClose.south(i).getX();
 									y = targetBlockClose.south(i).getY();
@@ -79,7 +76,7 @@ public class CompassHandler {
 							break;
 						}
 						case WEST: {
-							for(int i = 1; i <= maxBlockThru; i++) {
+							for(int i = 1; i <= Main.compassThruDistance; i++) {
 								if(isAir(targetBlockClose.west(i))) {
 									x = targetBlockClose.west(i).getX();
 									y = targetBlockClose.west(i).getY();
@@ -95,7 +92,7 @@ public class CompassHandler {
 					
 					//Down
 					if(Minecraft.getMinecraft().player.rotationPitch > 60) {
-						for(int i = 1; i <= maxBlockThru; i++) {
+						for(int i = 1; i <= Main.compassThruDistance; i++) {
 							if(isAir(targetBlockClose.down(i))) {
 								x = targetBlockClose.down(i).getX();
 								y = targetBlockClose.down(i).getY() - 1;
@@ -107,7 +104,7 @@ public class CompassHandler {
 					
 					//Up
 					if(Minecraft.getMinecraft().player.rotationPitch < -60) {
-						for(int i = 1; i <= maxBlockThru; i++) {
+						for(int i = 1; i <= Main.compassThruDistance; i++) {
 							if(isAir(targetBlockClose.up(i))) {
 								x = targetBlockClose.up(i).getX();
 								y = targetBlockClose.up(i).getY();
@@ -151,7 +148,7 @@ public class CompassHandler {
 			//Finds the closest block to the player and teleports there IF there is air above it
 			BlockPos[] poss = new BlockPos[] {new BlockPos(x+1,y,z), new BlockPos(x-1,y,z), new BlockPos(x,y,z+1), new BlockPos(x,y,z-1)};
 			
-			double minDistance = maxDistance * 2;
+			double minDistance = Main.compassDistance * 2;
 			BlockPos minBlockPos = null;
 			for(BlockPos p : poss) {
 				double distance = p.distanceSq(player.posX, player.posY, player.posZ);

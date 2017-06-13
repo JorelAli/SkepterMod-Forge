@@ -29,11 +29,14 @@ public class Main {
 	public static boolean challengeLowercase = true;
 	public static boolean challengeRandomDelay = true;
 	public static boolean challengeSmartDelay = true;
+	public static int compassDistance = 256;
+	public static int compassThruDistance = 10;
 	
 	//Config categories
 	public static final String CATEGORY_RAINBOW = "rainbowchat";
 	public static final String CATEGORY_COMMAND = "commands";
 	public static final String CATEGORY_CHALLENGE = "challenge";
+	public static final String CATEGORY_COMPASS = "compass";
 	public static final String CATEGORY_OTHER = "other";
 	
 	public static boolean isInWorld = false;
@@ -76,7 +79,10 @@ public class Main {
 		challengeRandomDelay = configFile.getBoolean("Challenge delay randomiser", CATEGORY_CHALLENGE, challengeRandomDelay, "Adds a random time to the base challenge delay option");
 		challengeSmartDelay = configFile.getBoolean("Challenge smart delay", CATEGORY_CHALLENGE, challengeSmartDelay, "Calculates the delay based on the complexity of the string. OVERRIDES RANDOM DELAY. Uses the current delay value as a basis for the smart delay");
 		
-		compassEnabled = configFile.getBoolean("Teleporting compass enabled", CATEGORY_OTHER, compassEnabled, "Whether right clicking with a compass teleports you");
+		compassEnabled = configFile.getBoolean("Teleporting compass enabled", CATEGORY_COMPASS, compassEnabled, "Whether right clicking with a compass teleports you");
+		compassDistance = configFile.getInt("Teleporting compass distance", CATEGORY_COMPASS, compassDistance,  0, 256, "The maximum distance for a compass teleport");
+		compassThruDistance = configFile.getInt("Teleporting compass distance through blocks", CATEGORY_COMPASS, compassThruDistance,  0, 256, "The maximum distance for a compass teleport through blocks");
+		
 		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
 		
 		if (configFile.hasChanged())

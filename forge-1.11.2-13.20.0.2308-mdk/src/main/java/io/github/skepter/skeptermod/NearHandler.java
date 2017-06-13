@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityEvoker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
@@ -68,6 +70,33 @@ public class NearHandler {
 
 					}
 					p.sendMessage(string);
+				}
+			} else if(event.getOriginalMessage().startsWith("/nearentities") || event.getOriginalMessage().startsWith("/nearbyentities")) {
+				//Prints out nearby entities
+				event.setCanceled(true);
+				String rangeStr = event.getOriginalMessage().replaceAll("\\D", "");
+				int range = 200;
+				if(rangeStr.length() != 0) {
+					range = Integer.parseInt(rangeStr);
+				}
+				EntityPlayerSP p = Minecraft.getMinecraft().player;
+				//area of around 200 blocks around the player
+				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - range, p.posY - range, p.posZ - range, p.posX + range, p.posY + range, p.posZ + range);
+				List<Entity> entities = Minecraft.getMinecraft().world.getEntitiesWithinAABBExcludingEntity(p, boundingBox);
+				for(Entity e : entities) {
+					p.sendMessage(new TextComponentString(e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
+				}
+			} else if(event.getOriginalMessage().startsWith("/evoker")) {
+				event.setCanceled(true);
+				int range = 200;
+				EntityPlayerSP p = Minecraft.getMinecraft().player;
+				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - range, p.posY - range, p.posZ - range, p.posX + range, p.posY + range, p.posZ + range);
+				List<EntityEvoker> entities = Minecraft.getMinecraft().world.getEntitiesWithinAABB(EntityEvoker.class, boundingBox);
+				if(entities.isEmpty()) {
+					p.sendMessage(new TextComponentString("No evokers nearby :("));
+				}
+				for(Entity e : entities) {
+					p.sendMessage(new TextComponentString(e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
 				}
 			}
 		}
