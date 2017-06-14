@@ -22,20 +22,17 @@ public class NearHandler {
 	@SubscribeEvent
 	public void onNearCommand(ClientChatEvent event) {
 		if(Main.nearCommandEnabled) {
+			//Styles
+			Style gold = new Style();
+			gold.setColor(TextFormatting.GOLD);
+			
+			Style white = new Style();
+			white.setColor(TextFormatting.WHITE);
+			
+			Style red = new Style();
+			red.setColor(TextFormatting.DARK_RED);
 			if(event.getOriginalMessage().equalsIgnoreCase("/near")) {
 				event.setCanceled(true);
-				
-				//Styles
-				Style gold = new Style();
-				gold.setColor(TextFormatting.GOLD);
-				
-				Style white = new Style();
-				white.setColor(TextFormatting.WHITE);
-				
-				Style red = new Style();
-				red.setColor(TextFormatting.DARK_RED);
-				
-				
 				EntityPlayerSP p = Minecraft.getMinecraft().player;
 				//area of around 200 blocks around the player
 				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - dist, p.posY - dist, p.posZ - dist, p.posX + dist, p.posY + dist, p.posZ + dist);
@@ -70,6 +67,7 @@ public class NearHandler {
 
 					}
 					p.sendMessage(string);
+					p.sendMessage(new TextComponentString("Total of ").setStyle(gold).appendSibling(new TextComponentString(players.size() + " ").setStyle(red)).appendSibling(new TextComponentString("players").setStyle(gold)));
 				}
 			} else if(event.getOriginalMessage().startsWith("/nearentities") || event.getOriginalMessage().startsWith("/nearbyentities")) {
 				//Prints out nearby entities
@@ -86,6 +84,7 @@ public class NearHandler {
 				for(Entity e : entities) {
 					p.sendMessage(new TextComponentString(e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
 				}
+				p.sendMessage(new TextComponentString("Total of ").setStyle(gold).appendSibling(new TextComponentString(entities.size() + " ").setStyle(red)).appendSibling(new TextComponentString("entities").setStyle(gold)));
 			} else if(event.getOriginalMessage().startsWith("/evoker")) {
 				event.setCanceled(true);
 				int range = 200;

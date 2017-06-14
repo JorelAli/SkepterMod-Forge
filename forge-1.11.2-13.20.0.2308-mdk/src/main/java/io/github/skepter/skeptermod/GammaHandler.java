@@ -8,6 +8,10 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 public class GammaHandler {
 
 	boolean gammaOn = false;
+	
+	public GammaHandler() {
+		gammaOn = Minecraft.getMinecraft().gameSettings.gammaSetting == 1 ? false : true;
+	}
 
 	public void adjustBrightness() {
 		if (gammaOn) {
