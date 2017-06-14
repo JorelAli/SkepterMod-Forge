@@ -1,7 +1,11 @@
 package io.github.skepter.skeptermod;
 
+import org.lwjgl.input.Keyboard;
+
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -43,7 +47,8 @@ public class Main {
 	
 	public static boolean isInWorld = false;
 
-	//public static KeyBinding key = new KeyBinding("Send anvil packet", Keyboard.KEY_K, "Skeptermod");
+	//Key bindings
+	public static KeyBinding gammaKey = new KeyBinding("Toggle gamma", Keyboard.KEY_G, "SkepterMod");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -61,9 +66,11 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new NearHandler());
 		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
 		MinecraftForge.EVENT_BUS.register(new LifesaverHandler());
+		MinecraftForge.EVENT_BUS.register(new GammaHandler());
+		
 		MinecraftForge.EVENT_BUS.register(new TestHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
-		//ClientRegistry.registerKeyBinding(key);
+		ClientRegistry.registerKeyBinding(gammaKey);
 	}
 	
 	public static void syncConfig() {

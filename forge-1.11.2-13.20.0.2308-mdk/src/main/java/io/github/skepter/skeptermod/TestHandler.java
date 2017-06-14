@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.TileEntityBeacon.BeamSegment;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /*
@@ -55,7 +54,7 @@ public class TestHandler {
 //		}
 //	}
 	
-	@SubscribeEvent
+	//@SubscribeEvent
 	public void beacon(TickEvent event) {
 		if(Minecraft.getMinecraft() != null) {
 			if(Minecraft.getMinecraft().world != null) {
