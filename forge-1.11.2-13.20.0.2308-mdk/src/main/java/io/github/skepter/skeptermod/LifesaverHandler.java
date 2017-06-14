@@ -8,8 +8,10 @@ public class LifesaverHandler {
 	
 	@SubscribeEvent
 	public void onChat(LivingFallEvent event) {
-		if(event.getDistance() > 3.0F) {
-			Minecraft.getMinecraft().player.sendChatMessage("/fly");
+		if(Main.lifeSaverEnabled) {
+			if(event.getDistance() > 3.0F) {
+				Minecraft.getMinecraft().player.sendChatMessage("/fly");
+			}
 		}
 	}
 	
