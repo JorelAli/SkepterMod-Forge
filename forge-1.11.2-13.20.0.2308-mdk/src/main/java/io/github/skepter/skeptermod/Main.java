@@ -32,6 +32,7 @@ public class Main {
 	public static int compassDistance = 256;
 	public static int compassThruDistance = 10;
 	public static boolean lifeSaverEnabled = true;
+	public static boolean lifeSaverFatalOnly = true;
 	
 	//Config categories
 	public static final String CATEGORY_RAINBOW = "rainbowchat";
@@ -60,7 +61,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new NearHandler());
 		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
 		MinecraftForge.EVENT_BUS.register(new LifesaverHandler());
-		//MinecraftForge.EVENT_BUS.register(new TestHandler());
+		MinecraftForge.EVENT_BUS.register(new TestHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
 		//ClientRegistry.registerKeyBinding(key);
 	}
@@ -87,6 +88,7 @@ public class Main {
 		
 		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
 		lifeSaverEnabled = configFile.getBoolean("Life saver enabled", CATEGORY_OTHER, lifeSaverEnabled, "Whether you type /fly just before you take fall damage");
+		lifeSaverFatalOnly = configFile.getBoolean("Prevent fatal falls only", CATEGORY_OTHER, lifeSaverFatalOnly, "Whether the life saver activates only if the fall damage could kill you");
 		
 		if (configFile.hasChanged())
 			configFile.save();

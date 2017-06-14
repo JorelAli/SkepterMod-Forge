@@ -9,9 +9,23 @@ public class LifesaverHandler {
 	@SubscribeEvent
 	public void onChat(LivingFallEvent event) {
 		if(Main.lifeSaverEnabled) {
-			if(event.getDistance() > 3.0F) {
+			if(Main.lifeSaverFatalOnly) {
+				if(isFatal(event.getDistance())) {
+					Minecraft.getMinecraft().player.sendChatMessage("/fly");
+				}
+			} else {
 				Minecraft.getMinecraft().player.sendChatMessage("/fly");
 			}
+		}
+	}
+	
+	private boolean isFatal(float distance) {
+		if(distance <= 3.0F) {
+			return false;
+		} else {
+			float health = Minecraft.getMinecraft().player.getHealth();
+			float damage = distance - 3;
+			return damage > health;
 		}
 	}
 	

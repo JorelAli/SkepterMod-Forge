@@ -1,13 +1,84 @@
 package io.github.skepter.skeptermod;
 
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 /*
  * Class to test events and stuff
  */
 public class TestHandler {
+	
+//	@SubscribeEvent
+//	public void render(RenderWorldLastEvent event) {
+//		for(TileEntity e : Minecraft.getMinecraft().world.loadedTileEntityList) {
+//			if(e instanceof TileEntityBeacon) {
+//				TileEntityBeacon beacon = (TileEntityBeacon) e;
+//					
+//				if (Minecraft.getMinecraft().world.getTotalWorldTime() % 80L == 1L) {
+//					try {
+//						Field beaconSegments = beacon.getClass().getDeclaredField("beamSegments");
+//						beaconSegments.setAccessible(true);
+//						
+//						List<BeamSegment> beams = Lists.<BeamSegment>newArrayList();
+//						for(int i = 0; i <= 100; i++) {
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.RED)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.ORANGE)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.YELLOW)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.LIME)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.LIGHT_BLUE)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.MAGENTA)));
+//							beams.add(new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.PURPLE)));
+//						}
+//						beaconSegments.set(beacon, beams);
+//					} catch (NoSuchFieldException e1) {
+//						e1.printStackTrace();
+//					} catch (SecurityException e1) {
+//						e1.printStackTrace();
+//					} catch (IllegalArgumentException e1) {
+//						e1.printStackTrace();
+//					} catch (IllegalAccessException e1) {
+//						e1.printStackTrace();
+//					}
+//				}
+//			}
+//		}
+//	}
+	
+	
+	
+//	@SubscribeEvent
+//	public void beacon(TickEvent event) {
+//		if(Minecraft.getMinecraft() != null) {
+//			if(Minecraft.getMinecraft().world != null) {
+//				for(TileEntity e : Minecraft.getMinecraft().world.loadedTileEntityList) {
+//					if(e instanceof TileEntityBeacon) {
+//						TileEntityBeacon beacon = (TileEntityBeacon) e;
+//						try {
+//							Field beaconSegments = beacon.getClass().getDeclaredField("beamSegments");
+//							beaconSegments.setAccessible(true);
+//							
+//							List<BeamSegment> beams = Lists.<BeamSegment>newArrayList();
+//							BeamSegment beamSegment = new BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.RED));
+//							beams.add(beamSegment);
+//							beaconSegments.set(beacon, beams);
+//						} catch (NoSuchFieldException e1) {
+//							e1.printStackTrace();
+//						} catch (SecurityException e1) {
+//							e1.printStackTrace();
+//						} catch (IllegalArgumentException e1) {
+//							e1.printStackTrace();
+//						} catch (IllegalAccessException e1) {
+//							e1.printStackTrace();
+//						}
+//						
+//						TileEntityBeaconRenderer.renderBeamSegment(100, 100, 100, 1, 1, Minecraft.getMinecraft().world.getTotalWorldTime(), 2, 1, EntitySheep.getDyeRgb(EnumDyeColor.RED), 0.2D, 0.25D);
+//						
+//						
+//						
+//					}
+//				}
+//			}
+//			
+//		}
+//		
+//	}
 	
 //	@SubscribeEvent
 //	public void onChat(ClientChatEvent event) {
@@ -31,15 +102,6 @@ public class TestHandler {
 //		System.out.println("Fired arrow!");
 //		new TileEntityBeacon.BeamSegment(null);
 //	}
-	
-	@SubscribeEvent
-	public void onChat(LivingFallEvent event) {
-		if(event.getDistance() > 3.0F) {
-			Minecraft.getMinecraft().player.sendChatMessage("/fly");
-		}
-//		System.out.println(event.getDistance());
-//		System.out.println("LivingFallEvent event");
-	}
 //	
 //	@SubscribeEvent
 //	public void onChat(LivingJumpEvent event) {
