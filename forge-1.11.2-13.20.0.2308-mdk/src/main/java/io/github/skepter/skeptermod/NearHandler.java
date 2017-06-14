@@ -2,6 +2,8 @@ package io.github.skepter.skeptermod;
 
 import java.util.List;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
@@ -22,17 +24,20 @@ public class NearHandler {
 	@SubscribeEvent
 	public void onNearCommand(ClientChatEvent event) {
 		if(Main.nearCommandEnabled) {
-			//Styles
-			Style gold = new Style();
-			gold.setColor(TextFormatting.GOLD);
 			
-			Style white = new Style();
-			white.setColor(TextFormatting.WHITE);
-			
-			Style red = new Style();
-			red.setColor(TextFormatting.DARK_RED);
 			if(event.getOriginalMessage().equalsIgnoreCase("/near")) {
 				event.setCanceled(true);
+				
+				//Styles
+				Style gold = new Style();
+				gold.setColor(TextFormatting.GOLD);
+				
+				Style white = new Style();
+				white.setColor(TextFormatting.WHITE);
+				
+				Style red = new Style();
+				red.setColor(TextFormatting.DARK_RED);
+				
 				EntityPlayerSP p = Minecraft.getMinecraft().player;
 				//area of around 200 blocks around the player
 				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - dist, p.posY - dist, p.posZ - dist, p.posX + dist, p.posY + dist, p.posZ + dist);
@@ -67,11 +72,23 @@ public class NearHandler {
 
 					}
 					p.sendMessage(string);
-					p.sendMessage(new TextComponentString("Total of ").setStyle(gold).appendSibling(new TextComponentString(players.size() + " ").setStyle(red)).appendSibling(new TextComponentString("players").setStyle(gold)));
+
+					p.sendMessage(new TextComponentString(ChatFormatting.GOLD + "Total of " + ChatFormatting.DARK_RED + String.valueOf(players.size()) + " " + ChatFormatting.GOLD + "players"));
 				}
 			} else if(event.getOriginalMessage().startsWith("/nearentities") || event.getOriginalMessage().startsWith("/nearbyentities")) {
 				//Prints out nearby entities
 				event.setCanceled(true);
+				
+				//Styles
+				Style gold = new Style();
+				gold.setColor(TextFormatting.GOLD);
+				
+				Style white = new Style();
+				white.setColor(TextFormatting.WHITE);
+				
+				Style red = new Style();
+				red.setColor(TextFormatting.DARK_RED);
+				
 				String rangeStr = event.getOriginalMessage().replaceAll("\\D", "");
 				int range = 200;
 				if(rangeStr.length() != 0) {
@@ -84,7 +101,9 @@ public class NearHandler {
 				for(Entity e : entities) {
 					p.sendMessage(new TextComponentString(e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
 				}
-				p.sendMessage(new TextComponentString("Total of ").setStyle(gold).appendSibling(new TextComponentString(entities.size() + " ").setStyle(red)).appendSibling(new TextComponentString("entities").setStyle(gold)));
+				
+				p.sendMessage(new TextComponentString(ChatFormatting.GOLD + "Total of " + ChatFormatting.DARK_RED + String.valueOf(entities.size()) + " " + ChatFormatting.GOLD + "entities"));
+
 			} else if(event.getOriginalMessage().startsWith("/evoker")) {
 				event.setCanceled(true);
 				int range = 200;
