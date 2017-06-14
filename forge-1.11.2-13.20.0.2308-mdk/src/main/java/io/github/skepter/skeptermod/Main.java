@@ -31,6 +31,7 @@ public class Main {
 	public static boolean challengeSmartDelay = true;
 	public static int compassDistance = 256;
 	public static int compassThruDistance = 10;
+	public static boolean lifeSaverEnabled = true;
 	
 	//Config categories
 	public static final String CATEGORY_RAINBOW = "rainbowchat";
@@ -58,8 +59,9 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new NameHighlighter());
 		MinecraftForge.EVENT_BUS.register(new NearHandler());
 		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
+		MinecraftForge.EVENT_BUS.register(new LifesaverHandler());
+		//MinecraftForge.EVENT_BUS.register(new TestHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
-		//MinecraftForge.EVENT_BUS.register(new JoinFlyHandler());
 		//ClientRegistry.registerKeyBinding(key);
 	}
 	
@@ -84,6 +86,7 @@ public class Main {
 		compassThruDistance = configFile.getInt("Teleporting compass distance through blocks", CATEGORY_COMPASS, compassThruDistance,  0, 256, "The maximum distance for a compass teleport through blocks");
 		
 		nameHighlightEnabled = configFile.getBoolean("Name highlighter enabled", CATEGORY_OTHER, nameHighlightEnabled, "Whether it highlights your name");
+		lifeSaverEnabled = configFile.getBoolean("Life saver enabled", CATEGORY_OTHER, lifeSaverEnabled, "Whether you type /fly just before you take fall damage");
 		
 		if (configFile.hasChanged())
 			configFile.save();
