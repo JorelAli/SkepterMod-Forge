@@ -16,10 +16,29 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class NearHandler {
 	
 	private final int dist = 200;
+	
+	@SubscribeEvent
+	public void onGameTick(TickEvent event) {
+		if(Minecraft.getMinecraft().world != null) {
+			if(Minecraft.getMinecraft().world.getTotalWorldTime() % 80L == 0L) {
+				int range = 200;
+				EntityPlayerSP p = Minecraft.getMinecraft().player;
+				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - range, p.posY - range, p.posZ - range,
+						p.posX + range, p.posY + range, p.posZ + range);
+				List<EntityEvoker> entities = Minecraft.getMinecraft().world.getEntitiesWithinAABB(EntityEvoker.class,
+						boundingBox);
+				for (Entity e : entities) {
+					p.sendMessage(new TextComponentString(
+							e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
+				}
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public void onNearCommand(ClientChatEvent event) {
@@ -104,18 +123,6 @@ public class NearHandler {
 				
 				p.sendMessage(new TextComponentString(ChatFormatting.GOLD + "Total of " + ChatFormatting.DARK_RED + String.valueOf(entities.size()) + " " + ChatFormatting.GOLD + "entities"));
 
-			} else if(event.getOriginalMessage().startsWith("/evoker")) {
-				event.setCanceled(true);
-				int range = 200;
-				EntityPlayerSP p = Minecraft.getMinecraft().player;
-				AxisAlignedBB boundingBox = new AxisAlignedBB(p.posX - range, p.posY - range, p.posZ - range, p.posX + range, p.posY + range, p.posZ + range);
-				List<EntityEvoker> entities = Minecraft.getMinecraft().world.getEntitiesWithinAABB(EntityEvoker.class, boundingBox);
-				if(entities.isEmpty()) {
-					p.sendMessage(new TextComponentString("No evokers nearby :("));
-				}
-				for(Entity e : entities) {
-					p.sendMessage(new TextComponentString(e.getName() + " (" + ((int) e.posX) + ", " + ((int) e.posY) + ", " + ((int) e.posZ) + ")"));
-				}
 			}
 		}
 	}

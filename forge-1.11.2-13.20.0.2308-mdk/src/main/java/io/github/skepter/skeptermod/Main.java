@@ -66,7 +66,6 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new NearHandler());
 		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
 		MinecraftForge.EVENT_BUS.register(new LifesaverHandler());
-		MinecraftForge.EVENT_BUS.register(new GammaHandler());
 		
 		MinecraftForge.EVENT_BUS.register(new TestHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
