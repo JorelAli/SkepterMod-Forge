@@ -11,6 +11,9 @@ public class TopHandler {
 		if(Main.topCommandEnabled) {
 			if(event.getOriginalMessage().startsWith("/top")) {
 				event.setCanceled(true);
+				//Simple trick to teleport them as high as possible
+				//If server has teleporting checks, it doesn't teleport them to x 256 z, it
+				//teleports them to the highest block
 				Minecraft.getMinecraft().player.sendChatMessage("/tppos ~ 256 ~");
 			}
 		}
