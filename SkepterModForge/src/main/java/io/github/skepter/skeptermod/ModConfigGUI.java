@@ -30,7 +30,7 @@ public class ModConfigGUI extends GuiConfig {
         list.add(categoryElement(Main.CATEGORY_RAINBOW, "Rainbow Chat", "Allows you to talk in chat in rainbow colors"));
         list.add(categoryElement(Main.CATEGORY_COMMAND, "Commands", "Enable/Disable commands"));
         list.add(categoryElement(Main.CATEGORY_CHALLENGE, "Challenge", "Challenge options"));
-        list.add(categoryElement(Main.CATEGORY_COMPASS, "Compass", "Compass related settings"));
+        list.add(categoryElement(Main.CATEGORY_COMPASS, "Compass", "Teleporting related settings"));
         list.add(categoryElement(Main.CATEGORY_OTHER, "Other", "Enable/Disable other stuff"));
       
         return list;
