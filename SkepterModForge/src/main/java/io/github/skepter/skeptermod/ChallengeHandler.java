@@ -66,7 +66,13 @@ public class ChallengeHandler extends Gui {
 
 				double d = calculate(input);
 				if ((int) d == d) {
-					submitAnswer(String.valueOf((int) d));
+					if(Main.challengeDerp) {
+						String derp = String.valueOf(ThreadLocalRandom.current().nextLong(1000, 999999));
+						String derp2 = String.valueOf(ThreadLocalRandom.current().nextLong(1000, 999999));
+						submitAnswer(derp + String.valueOf((int) d) + derp2);
+					} else {
+						submitAnswer(String.valueOf((int) d));
+					}
 				} else {
 					DecimalFormat twoDecimals = new DecimalFormat("#.00");
 					DecimalFormat oneDecimal = new DecimalFormat("#.0");

@@ -1,11 +1,7 @@
 package io.github.skepter.skeptermod;
 
-import org.lwjgl.input.Keyboard;
-
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -28,6 +24,7 @@ public class Main {
 	public static boolean nameHighlightEnabled = true;
 	public static boolean nearCommandEnabled = true;
 	public static boolean challengeEnabled = true;
+	public static boolean challengeDerp = true;
 	public static int challengeDelay = 3750;
 	public static boolean challengeDisplay = true;
 	public static boolean challengeLowercase = true;
@@ -38,6 +35,9 @@ public class Main {
 	public static boolean lifeSaverEnabled = true;
 	public static boolean lifeSaverFatalOnly = true;
 	
+	public static String slapPlayer = "TreeHuggers";
+	public static boolean slapModeEnabled = true;
+	
 	//Config categories
 	public static final String CATEGORY_RAINBOW = "rainbowchat";
 	public static final String CATEGORY_COMMAND = "commands";
@@ -46,9 +46,6 @@ public class Main {
 	public static final String CATEGORY_OTHER = "other";
 	
 	public static boolean isInWorld = false;
-
-	//Key bindings
-	public static KeyBinding gammaKey = new KeyBinding("Toggle gamma", Keyboard.KEY_G, "SkepterMod");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -67,9 +64,9 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new ChallengeHandler());
 		MinecraftForge.EVENT_BUS.register(new LifesaverHandler());
 		
+		MinecraftForge.EVENT_BUS.register(new SlapHandler());
 		MinecraftForge.EVENT_BUS.register(new TestHandler());
 		//MinecraftForge.EVENT_BUS.register(new AnvilModHandler());
-		ClientRegistry.registerKeyBinding(gammaKey);
 	}
 	
 	public static void syncConfig() {
@@ -82,6 +79,7 @@ public class Main {
 		nearCommandEnabled = configFile.getBoolean("/near command enabled", CATEGORY_COMMAND, nearCommandEnabled, "Whether the /near command is enabled");
 		
 		challengeEnabled = configFile.getBoolean("Challenge solver enabled", CATEGORY_CHALLENGE, challengeEnabled, "Whether the challenge completer is enabled");
+		challengeDerp = configFile.getBoolean("Challenge derper enabled", CATEGORY_CHALLENGE, challengeDerp, "Whether the challenge completer will produce derpy results");
 		challengeDelay = configFile.getInt("Challenge delay", CATEGORY_CHALLENGE, challengeDelay,  0, Integer.MAX_VALUE, "The delay between the challenge being asked and answering the challenge");
 		challengeDisplay = configFile.getBoolean("Challenge display enabled", CATEGORY_CHALLENGE, challengeDisplay, "Whether the challenge countdown is enabled");
 		challengeLowercase = configFile.getBoolean("Lowercase answers", CATEGORY_CHALLENGE, challengeLowercase, "Whether the challenge should be answered in lowercase");
@@ -96,6 +94,8 @@ public class Main {
 		lifeSaverEnabled = configFile.getBoolean("Life saver enabled", CATEGORY_OTHER, lifeSaverEnabled, "Whether you type /fly just before you take fall damage");
 		lifeSaverFatalOnly = configFile.getBoolean("Prevent fatal falls only", CATEGORY_OTHER, lifeSaverFatalOnly, "Whether the life saver activates only if the fall damage could kill you");
 		
+		slapModeEnabled = configFile.getBoolean("Slap mode enabled", CATEGORY_OTHER, slapModeEnabled, "Whether you are fighting for slap glory");
+		slapPlayer = configFile.getString("SlapPlayer",CATEGORY_OTHER, slapPlayer, "The player to slap", new String[] {"TreeHuggers", "Gerrie_K", "Jakerrr"});
 		if (configFile.hasChanged())
 			configFile.save();
 	}

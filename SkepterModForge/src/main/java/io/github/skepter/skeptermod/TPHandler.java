@@ -23,6 +23,8 @@ public class TPHandler {
 	int z = 1000000;
 
 	boolean similarWorld = false;
+	
+	private String targetPlayer;
 
 	@SubscribeEvent
 	public void onChat(ClientChatEvent event) {
@@ -39,6 +41,7 @@ public class TPHandler {
 					readyToTeleport = true;
 					acceptingCoordinates = true;
 					doCommand("/coords " + args[1]);
+					targetPlayer = args[1];
 
 					return;
 				}
@@ -152,6 +155,10 @@ public class TPHandler {
 			@Override
 			public void run() {
 				Minecraft.getMinecraft().player.sendChatMessage(command);
+
+				if(command.contains("tppos") && Main.slapModeEnabled) {
+					Minecraft.getMinecraft().player.sendChatMessage("/slap " + targetPlayer);
+				}
 			}
 
 		}, 500);
